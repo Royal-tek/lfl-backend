@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'player',
     'rest_registration',
+    'corsheaders',
 ]
 def getfonturl(url):
     return('127.0.0.1:8000'+url)
@@ -61,7 +62,6 @@ REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES': (
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
-
     )
 
 }
@@ -81,6 +81,7 @@ REST_REGISTRATION = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,7 +109,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'landmark_fantasy_app.wsgi.application'
-
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8080',
+)
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

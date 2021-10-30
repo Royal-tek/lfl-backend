@@ -2,7 +2,7 @@ from django.contrib import admin
 
 
 
-from .models import Player, PlayerImage, Coach, Point, UserTeam, Weeks
+from .models import Player, PlayerImage, Coach, Point, UserTeam, Weeks, News
 
 
 #This is for the arrangement and view of the database in a particular format.
@@ -18,3 +18,4 @@ admin.site.register(Coach)
 admin.site.register(Point, PointList)
 admin.site.register(UserTeam)
 admin.site.register(Weeks)
+admin.site.register(News)

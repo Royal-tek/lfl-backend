@@ -44,7 +44,7 @@ card = (
 
 #This is the coach model, every player must be validated and approved by his coach. So when a player is registering , he would have to also specify who his coach is and if his coach approves that he is ne of his player then the player status will change to true enabling him to be displayed in the app.
 class Coach(models.Model):
-    code_team_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    code_team_user = models.ForeignKey(User, related_name="coachuser", on_delete=models.CASCADE)
     team = models.CharField(max_length=5, choices=teams)
 
     def __str__(self):
@@ -56,13 +56,14 @@ class Coach(models.Model):
     
 #This is the player model, where the players would be registered to and specify who their coach is so they can wait for approval.
 class Player(models.Model):
-    coach = models.ForeignKey(Coach, on_delete= models.CASCADE)
+    coach = models.ForeignKey(Coach, related_name='coach', on_delete= models.CASCADE)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
     username = models.CharField(max_length=200, unique=True)
     position = models.CharField(max_length=3, choices=positions, default=2)
+    number = models.IntegerField(null=True)
     team = models.CharField(max_length=5, choices=teams, blank=True)
-    status = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now=True, auto_created=False)
 
     def __str__(self):
@@ -74,14 +75,14 @@ class Player(models.Model):
 #This is the model for the a particular users team. A user a foreign key to this particular model, It has a many to many field that contains all the players in the player model and allows you to pick 23 players.
 class UserTeam(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    team = models.ManyToManyField(Player)
+    team = models.ManyToManyField(Player, max_length=2)
 
     def __str__(self):
         return self.user.username
 
 #This is the player image model which has a foreign key to the player model , it is for a particular players image
 class PlayerImage(models.Model):
-    player = models.ForeignKey(Player, on_delete = models.CASCADE)
+    player = models.ForeignKey(Player, related_name="playerimage", on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'media/')
 
     def __str__(self):
@@ -100,11 +101,11 @@ class Weeks(models.Model):
 
 #This is for the points awardal. It contains the weekly points and the total points of a particular player . The player is referenced as a foreign key to the point model.
 class Point(models.Model):
-    player = models.ForeignKey(Player, on_delete = models.CASCADE)
-    goals = models.IntegerField()
+    player = models.ForeignKey(Player, related_name="playerpoint", on_delete = models.CASCADE)
+    goals = models.IntegerField(blank=True, null=True)
     week = models.ForeignKey(Weeks, on_delete = models.CASCADE)
-    assists = models.IntegerField()
-    minutes_played = models.IntegerField()
+    assists = models.IntegerField(blank=True, null=True, default=0)
+    minutes_played = models.IntegerField(blank=True)
     yellowcard = models.CharField(max_length=10, default=0, choices = card)
     redcard = models.CharField(max_length=10, default=0, choices = card)
     captain = models.BooleanField()
@@ -130,3 +131,19 @@ class Point(models.Model):
         # self.total_points = self.weekly_points*2
         super(Point, self).save(*args, **kwargs)
 
+class News(models.Model):
+    image = models.FileField(upload_to='media')
+    title = models.CharField(max_length=200)
+    poster = models.ForeignKey(User, on_delete = models.CASCADE)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'News'
+        ordering = ['-date']
+        verbose_name = 'News'
+    
+    def __str__(self):
+        return self.title
+    
