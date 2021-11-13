@@ -17,6 +17,14 @@ teams = (
     ("abe","Agric and Biosystems Engineering"),
     ("sip","Sociology, International reltions and political science"),
     ("sos","School of Science"),
+    ("phy","Physical Sience"),
+    ("eie","Electrical Information Engineering"),
+    ("acc","Accounting"),
+    ("eco","Economics"),
+    ("mcom","Mass Communication"),
+    ("aqua","Agric Extention"),
+    ("cas","Animal Science"),
+    ("chem","Chemical Engineering"),
 )
 
 #This is for the different weeks available on the app
@@ -31,6 +39,14 @@ weekday = (
     ("wk8", "week8"),
     ("wk9", "week9"),
     ("wk10", "week10")
+)
+
+# This is for the colleges selection and option
+college = (
+    ("cpas", "College of pure and applied science"),
+    ("coe", "College of Engineering"),
+    ("cas", "College of Agricultural Science"),
+    ("cbs", "College of Business and Social Science")
 )
 
 #This is the selection for the number of cards a player recieved
@@ -62,6 +78,7 @@ class Player(models.Model):
     username = models.CharField(max_length=200, unique=True)
     position = models.CharField(max_length=3, choices=positions, default=2)
     number = models.IntegerField(null=True)
+    college = models.CharField(max_length=200, null=True, choices=college)
     team = models.CharField(max_length=5, choices=teams, blank=True)
     approved = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now=True, auto_created=False)
