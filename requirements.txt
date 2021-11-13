@@ -2,8 +2,10 @@ asgiref==3.4.1
 backports.entry-points-selectable==1.1.0
 confusable-homoglyphs==3.2.0
 distlib==0.3.3
+dj-database-url==0.5.0
 Django==3.2.7
 django-cors-headers==3.10.0
+django-heroku==0.3.1
 django-registration==3.2
 django-rest-registration==0.6.4
 django-restframework==0.0.1
@@ -12,6 +14,7 @@ filelock==3.3.0
 gunicorn==20.1.0
 Pillow==8.3.2
 platformdirs==2.4.0
+psycopg2==2.9.2
 pytz==2021.1
 six==1.16.0
 sqlparse==0.4.2
