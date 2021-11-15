@@ -18,11 +18,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+# url(r'^$', 'path.to.function')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('rest_registration.api.urls')),
     path('api/', include('player.urls')),
+    
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
