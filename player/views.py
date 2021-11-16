@@ -29,6 +29,7 @@ class ListAllPlayers(APIView):
 
 
 class LoggedUser(APIView):
+    
     def get(self, request):
         user = User.objects.all().filter(username=request.user.username)
         serializer = UserSerializer(user, many=True)
