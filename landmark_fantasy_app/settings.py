@@ -84,7 +84,7 @@ REST_REGISTRATION = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,9 +114,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'landmark_fantasy_app.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://127.0.0.1:8080',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'http://127.0.0.1:8080',
+# )
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -169,7 +169,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT =  BASE_DIR / 'media' 
