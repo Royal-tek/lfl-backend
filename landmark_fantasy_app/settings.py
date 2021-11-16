@@ -54,15 +54,12 @@ REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
 
-
     "DEFAULT_AUTHENTICATION_CLASSES": (
       'rest_framework.authentication.TokenAuthentication',
       'rest_framework.authentication.SessionAuthentication',
       'rest_framework.authentication.BasicAuthentication',
-
-
-
     ),
+
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
     )
@@ -113,10 +110,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'landmark_fantasy_app.wsgi.application'
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     'http://127.0.0.1:8080',
-# )
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8080/',
+)
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
