@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import generics
-from .serializers import PlayerSerializer, UserSerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, CreateTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
+from .serializers import PlayerSerializer, UserSerializer, PlayerDisplaySerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, CreateTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
 from .models import Player, Point, UserTeam, News, Coach
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -27,6 +27,12 @@ class ListAllPlayers(APIView):
         serializer = PlayerSerializer(player, many=True)
         return Response(serializer.data)
 
+class DisplayAllPlayers(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        player = Player.objects.all().filter(approved=True)
+        serializer = PlayerDisplaySerializer(player, many=True)
+        return Response(serializer.data)
 
 class LoggedUser(APIView):
     

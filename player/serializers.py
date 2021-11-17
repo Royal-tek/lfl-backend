@@ -40,6 +40,14 @@ class PlayerSerializer(serializers.ModelSerializer):
         model = Player
         fields = ['id','coach','firstname','playerimage','lastname', 'username','playerpoint', 'position', 'team', 'approved', 'date_created']
 
+class PlayerDisplaySerializer(serializers.ModelSerializer):
+    # coach = coachSerializer(read_only=True)
+    playerpoint = AwardPointSerializer(read_only=True, many=True)
+    playerimage = ImageSerializer(read_only=True, many=True)
+    class Meta:
+        model = Player
+        fields = ['id','firstname','playerimage','lastname', 'username','playerpoint', 'position', 'team', 'approved', 'date_created']
+
 
 
 #This is the serializer for creating and registration of a player...
