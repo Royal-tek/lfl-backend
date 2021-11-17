@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3r_x3gf(5l8*8vwe!29rjn2+60h4f@_35*c+#ockz201h2ldo('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["https://lfl-app.herokuapp.com", "127.0.0.1" ]
 
@@ -55,9 +55,9 @@ REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES': (
     ),
 
     "DEFAULT_AUTHENTICATION_CLASSES": (
-      'rest_framework.authentication.TokenAuthentication',
-      'rest_framework.authentication.SessionAuthentication',
-      'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
 
     "DEFAULT_PERMISSION_CLASSES": (
@@ -110,10 +110,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'landmark_fantasy_app.wsgi.application'
-# CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://127.0.0.1:8080/',
-)
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://127.0.0.1:8080',
+# )
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -167,6 +167,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATICFILES_DIRS = [BASE_DIR / 'static']
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE =  'django.contrib.staticfiles.storage.StaticFilesStorage' 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT =  BASE_DIR / 'media' 
