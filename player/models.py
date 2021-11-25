@@ -25,6 +25,7 @@ teams = (
     ("aqua","Agric Extention"),
     ("cas","Animal Science"),
     ("chem","Chemical Engineering"),
+    ("bus","Business Admin"),
 )
 
 #This is for the different weeks available on the app
@@ -91,15 +92,18 @@ class Player(models.Model):
 
 #This is the model for the a particular users team. A user a foreign key to this particular model, It has a many to many field that contains all the players in the player model and allows you to pick 23 players.
 class UserTeam(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    team = models.ManyToManyField(Player, max_length=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    attackers = models.ManyToManyField(Player, related_name='attackers')
+    midfielders = models.ManyToManyField(Player,  related_name='midfielders')
+    defenders = models.ManyToManyField(Player,  related_name='defenders')
+    goalkeeper = models.ManyToManyField(Player,  related_name='goalkeeper')
 
     def __str__(self):
         return self.user.username
 
 #This is the player image model which has a foreign key to the player model , it is for a particular players image
 class PlayerImage(models.Model):
-    player = models.ForeignKey(Player, related_name="playerimage", on_delete = models.CASCADE)
+    player = models.ForeignKey(Player, related_name="playerimage", on_delete=models.CASCADE)
     image = models.ImageField(upload_to = 'media/')
 
     def __str__(self):

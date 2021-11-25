@@ -55,7 +55,7 @@ class PlayerCreateSerializer(serializers.ModelSerializer):
     playerimage = ImageSerializer(write_only=True)
     class Meta:
         model = Player
-        fields = ['id','coach','firstname','lastname','playerimage', 'username', 'position', 'number', 'team', 'approved', 'date_created']
+        fields = ['id','coach','firstname','lastname','playerimage', 'username', 'position', 'number', 'team', 'college', 'approved', 'date_created']
         read_only_fields = ['date_created', 'approved']
     def validate(self, attrs):
         return attrs
@@ -88,13 +88,20 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_staff']
 
-class CreateTeamSerializer(serializers.ModelSerializer):
+class UserTeamSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only = True)
-    team = PlayerCreateSerializer(read_only = True, many=True)
+    team = PlayerDisplaySerializer(read_only = True, many=True)
     class Meta:
         model = UserTeam
-        fields = ['id', 'user', 'team']
+        fields = ['id','user','team']
         read_only_field = 'user'
+
+class CreateUserTeam(serializers.ModelSerializer):
+    user = UserSerializer(read_only= True)
+    class Meta:
+        model = UserTeam
+        fields = ['id', 'user', 'attackers', 'midfielders', 'defenders', 'goalkeeper'] 
+        # read_only_field = 'user'
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:

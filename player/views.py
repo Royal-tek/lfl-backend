@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import generics
-from .serializers import PlayerSerializer, UserSerializer, PlayerDisplaySerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, CreateTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
+from .serializers import PlayerSerializer, CreateUserTeam, UserSerializer, PlayerDisplaySerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, UserTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
 from .models import Player, Point, UserTeam, News, Coach
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -80,9 +80,9 @@ class AwardPoint(generics.ListCreateAPIView):
 #             return Response(serializer.data, status =status.HTTP_201_CREATED)
 #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class CreateTeam(generics.ListCreateAPIView):
+class ViewUserTeams(generics.ListAPIView):
     queryset = UserTeam.objects.all()
-    serializer_class = CreateTeamSerializer
+    serializer_class = UserTeamSerializer
 
 class News(generics.ListCreateAPIView):
     queryset = News.objects.all()
@@ -96,3 +96,8 @@ class ListAllCoaches(APIView):
         coach = Coach.objects.all()
         serializer = ListCoachSerializer(coach, many=True)
         return Response(serializer.data)
+
+class UserCreateTeam(generics.CreateAPIView):
+    serializer_class = CreateUserTeam
+    queryset = UserTeam.objects.all()
+    permission_classes = [IsAuthenticated]
