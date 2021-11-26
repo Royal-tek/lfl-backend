@@ -90,18 +90,25 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserTeamSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only = True)
-    team = PlayerDisplaySerializer(read_only = True, many=True)
+    attackers = PlayerDisplaySerializer(read_only = True, many=True)
+    midfielders = PlayerDisplaySerializer(read_only = True, many=True)
+    defenders = PlayerDisplaySerializer(read_only = True, many=True)
+    goalkeeper  = PlayerDisplaySerializer(read_only = True, many=True)
     class Meta:
         model = UserTeam
-        fields = ['id','user','team']
+        fields = ['id','user','attackers', 'midfielders', 'defenders', 'goalkeeper']
         read_only_field = 'user'
 
 class CreateUserTeam(serializers.ModelSerializer):
-    user = UserSerializer(read_only= True)
+    # user = UserSerializer(read_only= True)
     class Meta:
         model = UserTeam
         fields = ['id', 'user', 'attackers', 'midfielders', 'defenders', 'goalkeeper'] 
-        # read_only_field = 'user'
+
+class approvePlayer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['id', 'firstname', 'lastname', 'username', 'approved']
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:

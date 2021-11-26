@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import generics
-from .serializers import PlayerSerializer, CreateUserTeam, UserSerializer, PlayerDisplaySerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, UserTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
+from .serializers import PlayerSerializer, CreateUserTeam, approvePlayer, UserSerializer, PlayerDisplaySerializer, PlayerCreateSerializer,ListCoachSerializer, CoachUserSerializer, UserTeamSerializer,NewsSerializer, PointListSerializer, AwardPointSerializer
 from .models import Player, Point, UserTeam, News, Coach
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -52,6 +52,25 @@ class CoachPlayers(APIView):
 
 
 
+class approvePlayer(APIView):
+    def get_object(self, pk):
+        try:
+            return Player.objects.get(pk=pk)
+        except Player.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, pk):
+        player = self.get_object(pk)
+        serializer = approvePlayer(player, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
 class PlayerCreate(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = PlayerCreateSerializer
@@ -64,6 +83,7 @@ class PointListView(generics.ListAPIView):
 class AwardPoint(generics.ListCreateAPIView):
     serializer_class = AwardPointSerializer
     queryset = Point.objects.all()
+
 
 
 
@@ -101,3 +121,4 @@ class UserCreateTeam(generics.CreateAPIView):
     serializer_class = CreateUserTeam
     queryset = UserTeam.objects.all()
     permission_classes = [IsAuthenticated]
+
