@@ -50,22 +50,25 @@ class CoachPlayers(APIView):
         return Response(serializer.data)
 
 
+class approvePlayer(generics.CreateAPIView):
+    serializer_class = approvePlayer
+    queryset = Player.objects.all()
 
 
-class approvePlayer(APIView):
-    def get_object(self, pk):
-        try:
-            return Player.objects.get(pk=pk)
-        except Player.DoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
+# class approvePlayer(APIView):
+#     def get_object(self, pk):
+#         try:
+#             return Player.objects.get(pk=pk)
+#         except Player.DoesNotExist:
+#                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def put(self, request, pk):
-        player = self.get_object(pk)
-        serializer = approvePlayer(player, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def put(self, request, pk):
+#         player = self.get_object(pk)
+#         serializer = approvePlayer(player, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

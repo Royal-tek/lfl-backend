@@ -14,7 +14,7 @@ urlpatterns = [
     path('listallcoaches/', ListAllCoaches.as_view()),
     path('displayplayers/', DisplayAllPlayers.as_view()),
     path('createteam/', UserCreateTeam.as_view()),
-    path('approveplayer/', approvePlayer.as_view()),
+    path('approveplayer/<int:id>', approvePlayer.as_view()),
 
 
 ]

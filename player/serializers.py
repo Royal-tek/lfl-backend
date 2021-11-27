@@ -108,7 +108,7 @@ class CreateUserTeam(serializers.ModelSerializer):
 class approvePlayer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['id', 'firstname', 'lastname', 'username', 'approved']
+        fields = ['id', 'approved']
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
