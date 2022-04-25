@@ -125,3 +125,9 @@ class UserCreateTeam(generics.CreateAPIView):
     queryset = UserTeam.objects.all()
     permission_classes = [IsAuthenticated]
 
+class ListUsersAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)

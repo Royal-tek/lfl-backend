@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PlayerListView, approvePlayer,  PlayerCreate,ListAllCoaches, UserCreateTeam, PointListView, AwardPoint, ViewUserTeams, News, LoggedUser, ListAllPlayers, CoachPlayers, DisplayAllPlayers
+from .views import PlayerListView,ListUsersAPIView, approvePlayer,  PlayerCreate,ListAllCoaches, UserCreateTeam, PointListView, AwardPoint, ViewUserTeams, News, LoggedUser, ListAllPlayers, CoachPlayers, DisplayAllPlayers
 
 urlpatterns = [
     path('listplayers/', PlayerListView.as_view()),
