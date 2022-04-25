@@ -2,6 +2,7 @@ from django.urls import path
 from .views import PlayerListView,ListUsersAPIView, approvePlayer,  PlayerCreate,ListAllCoaches, UserCreateTeam, PointListView, AwardPoint, ViewUserTeams, News, LoggedUser, ListAllPlayers, CoachPlayers, DisplayAllPlayers
 
 urlpatterns = [
+    path("listusers", ListUsersAPIView.as_view()),
     path('listplayers/', PlayerListView.as_view()),
     path('createplayers/', PlayerCreate.as_view()),
     path('listpoints/', PointListView.as_view()),
